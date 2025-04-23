@@ -17,15 +17,13 @@ function PerfilPaciente() {
     contacto: "+1 000 000 0000",
     ciudad: "Ponce",
   });
-  const [rolActivo, setRolActivo] = useState("paciente");
+  const rolActivo = "paciente";
 
   useEffect(() => {
     const stored = localStorage.getItem("pacienteProfile");
     if (stored) {
       setPerfil(JSON.parse(stored));
     }
-    const role = localStorage.getItem("role")?.toLowerCase();
-    setRolActivo(role === "medico" || role === "especialista" || role === "paciente" ? role : "paciente");
   }, []);
 
   const handleChange = (field: string, value: string) => {
@@ -43,7 +41,7 @@ function PerfilPaciente() {
     router.push("/login");
   };
 
-  const avatar = rolActivo === "medico" ? "/doctor.png" : rolActivo === "especialista" ? "/especialista.png" : "/avatar-placeholder.png";
+  const avatar = "/avatar-placeholder.png";
 
   return (
     <DashboardLayout>
