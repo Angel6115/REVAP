@@ -6,8 +6,9 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import withAuth from "@/components/withAuth";
 
-export default function PerfilPaciente() {
+function PerfilPaciente() {
   const router = useRouter();
   const [editable, setEditable] = useState(false);
   const [perfil, setPerfil] = useState({
@@ -103,3 +104,5 @@ export default function PerfilPaciente() {
     </DashboardLayout>
   );
 }
+
+export default withAuth(PerfilPaciente);

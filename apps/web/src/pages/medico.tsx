@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import withAuth from "@/components/withAuth";
 
 interface InfoMedico {
   nombre: string;
@@ -17,7 +18,7 @@ interface InfoMedico {
   direccion: string;
 }
 
-export default function PerfilMedico() {
+function PerfilMedico() {
   const router = useRouter();
   const [editando, setEditando] = useState(false);
   const [datos, setDatos] = useState<InfoMedico>({
@@ -44,8 +45,8 @@ export default function PerfilMedico() {
 
   const guardarCambios = () => {
     localStorage.setItem("perfilMedico", JSON.stringify(datos));
-    setEditando(false);
     alert("Perfil actualizado ✅");
+    setEditando(false);
   };
 
   const cerrarSesion = () => {
@@ -88,16 +89,13 @@ export default function PerfilMedico() {
           ))}
 
           <div className="pt-4 flex justify-between items-center">
-            {editando ? (
-              <>
+            <div>
+              {editando ? (
                 <Button onClick={guardarCambios}>Guardar</Button>
-                <Button variant="outline" onClick={() => setEditando(false)} className="ml-2">
-                  Cancelar
-                </Button>
-              </>
-            ) : (
-              <Button onClick={() => setEditando(true)}>Editar Información</Button>
-            )}
+              ) : (
+                <Button onClick={() => setEditando(true)}>Editar Información</Button>
+              )}
+            </div>
             <Button variant="destructive" onClick={cerrarSesion}>Cerrar sesión</Button>
           </div>
         </div>
@@ -105,3 +103,5 @@ export default function PerfilMedico() {
     </DashboardLayout>
   );
 }
+
+export default withAuth(PerfilMedico);
