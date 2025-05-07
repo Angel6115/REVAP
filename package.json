@@ -1,0 +1,38 @@
+{
+  "name": "revap-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run build:css && next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "build:css": "tailwindcss -c tailwind.config.js -i ./src/styles/globals.css -o ./public/tailwind.css"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "bootstrap": "^5.3.6",
+    "date-fns": "^4.1.0",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "next": "13.x",
+    "openai": "^4.0.0",
+    "pdf-lib": "^1.17.1",
+    "qrcode": "^1.5.4",
+    "qrcode.react": "^4.2.0",
+    "react": "18.x",
+    "react-bootstrap": "^2.10.9",
+    "react-dom": "18.x",
+    "recharts": "^2.15.3",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.18",
+    "@types/qrcode": "^1.4.4",
+    "@types/react": "^18.0.17",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.5",
+    "tailwindcss": "^3.1.0",
+    "typescript": "^4.8.4"
+  }
+}

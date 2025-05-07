@@ -1,0 +1,39 @@
+/* 1) Importación de fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Tex&display=swap');
+
+/* 2) Directivas de Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3) Variables CSS */
+:root {
+  --color-bg:       #F8F6F3;
+  --color-primary:  #0732EF;
+  --color-accent1:  #D9FB99;
+  --color-accent2:  #517A06;
+}
+
+/* 4) Base styles */
+@layer base {
+  body {
+    @apply bg-background font-body text-gray-800 m-0 p-0;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-primary m-0;
+  }
+  a {
+    @apply text-primary no-underline;
+  }
+  a:hover {
+    @apply underline;
+  }
+}
+
+/* 5) Componentes */
+@layer components {
+  .btn {
+    @apply inline-block px-4 py-2 rounded-lg font-medium text-white bg-primary hover:bg-accent2 transition;
+  }
+}
