@@ -27,9 +27,16 @@ export default function VerificarExpediente() {
 
     const documents: DocumentoCompartido[] = JSON.parse(stored);
 
-    const match = documents.find(
+    interface Documento {
+      name: string;
+      code: string;
+      sharedWith: string;
+    }
+    
+    const match = (documents as Documento[]).find(
       (doc) => doc.sharedWith === email && doc.code === code
     );
+    
 
     if (match) {
       setDocName(match.name);
