@@ -1,9 +1,12 @@
-import React from "react";
+// src/components/ui/Card.tsx
+import { ReactNode } from 'react'
 
-export const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div className={`bg-white rounded-xl shadow-md ${className}`}>{children}</div>
-);
+interface CardProps { children: ReactNode; className?: string }
 
-export const CardContent = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div className={`p-4 ${className}`}>{children}</div>
-);
+export default function Card({ children, className = '' }: CardProps) {
+  return (
+    <div className={`bg-white rounded-lg shadow p-4 ${className}`}>
+      {children}
+    </div>
+  )
+}

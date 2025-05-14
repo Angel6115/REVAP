@@ -1,9 +1,14 @@
 // src/pages/verificar-expediente.tsx
-
 import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
-import { Input } from "@/components/ui/Input";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/Button";
+
+interface Documento {
+  name: string;
+  sharedWith: string;
+  code: string;
+}
 
 export default function VerificarExpediente() {
   const [email, setEmail] = useState("");
@@ -15,14 +20,14 @@ export default function VerificarExpediente() {
   const handleVerify = () => {
     const stored = localStorage.getItem("documents");
     if (!stored) {
-      setMessage("No hay documentos compartidos.");
+      setMessage("⚠️ No hay documentos compartidos.");
       return;
     }
 
-    const documents = JSON.parse(stored);
+    const documents: Documento[] = JSON.parse(stored);
 
     const match = documents.find(
-      (doc: any) => doc.sharedWith === email && doc.code === code
+      (doc) => doc.sharedWith === email && doc.code === code
     );
 
     if (match) {
@@ -36,20 +41,22 @@ export default function VerificarExpediente() {
   };
 
   const simulateShare = () => {
-    const existing = JSON.parse(localStorage.getItem("documents") || "[]");
+    const existing: Documento[] = JSON.parse(localStorage.getItem("documents") || "[]");
     existing.push({
       name: "Expediente Clínico - Juan Pérez",
       code: "794264",
       sharedWith: "pediatra@clinic.org",
     });
     localStorage.setItem("documents", JSON.stringify(existing));
-    alert("Documento simulado como compartido.");
+    alert("✅ Documento simulado como compartido.");
   };
 
   return (
     <DashboardLayout>
-      <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
-        <h2 className="text-xl font-semibold mb-4">Verificar Acceso a Expediente</h2>
+      <div className="max-w-md mx-auto bg-white p-6 rounded shadow text-sm">
+        <h2 className="text-xl font-semibold mb-4 text-blue-800">
+          🔐 Verificar Acceso a Expediente
+        </h2>
 
         <Input
           placeholder="Correo electrónico del destinatario"
@@ -77,7 +84,7 @@ export default function VerificarExpediente() {
         </Button>
 
         {message && (
-          <div className="mt-4 p-2 border border-red-500 text-red-600 rounded">
+          <div className="mt-4 p-2 border border-red-400 text-red-600 rounded bg-red-50">
             {message}
           </div>
         )}

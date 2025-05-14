@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+      /* Habilita características ECMAScript modernas */
+      "target": "es5",
+      "lib": ["dom", "dom.iterable", "esnext"],
+  
+      /* No emitir archivos de salida (Next se encarga) */
+      "noEmit": true,
+  
+      /* Fuerte tipado y saneamiento */
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "skipLibCheck": true,
+      "isolatedModules": true,
+  
+      /* Soporte JSX/TSX */
+      "jsx": "preserve",
+  
+      /* Resolución de módulos */
+      "module": "esnext",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+  
+      /* Base URL y alias para imports con "@/..." */
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"]
+      }
+    },
+    "include": [
+      "next-env.d.ts",
+      "**/*.ts",
+      "**/*.tsx"
+, "scripts/generarReferidosSQL.mts"    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
+  

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
-import { Input } from "@/components/ui/Input";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -13,7 +13,10 @@ export default function PerfilEspecialista() {
   const [datos, setDatos] = useState({
     nombre: "Lic. Camila Rodríguez",
     profesion: "Terapista del Habla y Lenguaje",
-    cedula: "E12345678",
+    licencia_profesional: "LIC-789456",
+    fecha_caducidad: "2026-12-31",
+    npi: "9876543210",
+    medicaid: "MED-55443322",
     email: "camila@clinic.org",
     telefono: "+1 787-000-1122",
     direccion: "Calle Luna 45, Bayamón",
@@ -65,7 +68,7 @@ export default function PerfilEspecialista() {
           {Object.entries(datos).map(([key, value]) => (
             <div key={key}>
               <label className="block text-sm font-medium capitalize mb-1" htmlFor={key}>
-                {key}
+                {key.replace(/_/g, " ")}
               </label>
               <Input
                 name={key}

@@ -1,71 +1,65 @@
 // src/pages/login.tsx
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
-import { Card, CardContent } from "@/components/ui/Card";
 
 export default function Login() {
   const router = useRouter();
-  const [role, setRole] = useState<string>("paciente");
-  const [email, setEmail] = useState("");
+
+  const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem("role", role);
-    router.push("/dashboard");
+
+    if (!correo || !password) {
+      alert("Por favor completa todos los campos.");
+      return;
+    }
+
+    // Simulación de login (puedes integrar Supabase más adelante)
+    alert("Inicio de sesión exitoso");
+    router.push("/medico");
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-      <Card className="w-full max-w-md">
-        <CardContent className="space-y-6">
-          <h1 className="text-2xl font-bold text-center">Ingreso a REVAP</h1>
+    <div className="flex h-screen bg-gradient-to-r from-blue-900 to-teal-600">
+      <div className="flex items-center justify-center w-full">
+        <form
+          onSubmit={handleLogin}
+          className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
+        >
+          <h2 className="text-2xl font-bold mb-6 text-center">Bienvenido</h2>
 
-          <div className="flex justify-center gap-4">
-            <Button
-              variant={role === "paciente" ? "default" : "outline"}
-              onClick={() => setRole("paciente")}
-            >
-              Paciente
-            </Button>
-            <Button
-              variant={role === "medico" ? "default" : "outline"}
-              onClick={() => setRole("medico")}
-            >
-              Médico
-            </Button>
-            <Button
-              variant={role === "especialista" ? "default" : "outline"}
-              onClick={() => setRole("especialista")}
-            >
-              Especialista
-            </Button>
+          <input
+            type="email"
+            placeholder="Correo"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+            className="mb-4 w-full px-3 py-2 border border-gray-300 rounded"
+          />
+
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mb-4 w-full px-3 py-2 border border-gray-300 rounded"
+          />
+
+          <div className="flex items-center mb-4">
+            <input type="checkbox" className="mr-2" />
+            <label>Recordar</label>
           </div>
 
-          <form className="space-y-4" onSubmit={handleLogin}>
-            <Input
-              placeholder="Correo electrónico"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <Input
-              placeholder="Contraseña"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <Button className="w-full" type="submit">
-              Ingresar
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </main>
+          <button
+            type="submit"
+            className="bg-blue-600 text-white py-2 px-4 rounded w-full hover:bg-blue-700 transition"
+          >
+            Ingresar
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
