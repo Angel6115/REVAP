@@ -1,19 +1,9 @@
-// src/components/Header.tsx
+import React from 'react'
 
-import Image from "next/image";
-
-export default function Header() {
+export default function Header({ title }: { title: string }) {
   return (
-    <header className="w-full py-4 flex justify-center bg-white shadow-sm">
-      <div className="flex items-center gap-4">
-        <Image
-          src="/REVAP.png"
-          alt="Logo de REVAP"
-          width={160} // Puedes ajustar esto si aún se ve pequeño
-          height={80}
-          priority
-        />
-      </div>
+    <header className="w-full py-4 px-6 bg-blue-800 text-white shadow flex items-center justify-between">
+      <h1 className="text-xl font-semibold">{title}</h1>
     </header>
-  );
+  )
 }

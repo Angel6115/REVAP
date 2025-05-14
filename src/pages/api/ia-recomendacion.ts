@@ -1,38 +1,30 @@
-// src/pages/api/ia-recomendacion.ts
+// apps/web/src/pages/api/ia-recomendacion.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-import OpenAI from 'openai';
+import { OpenAI } from 'openai';
+import { generateRecommendation } from '@/lib/ia';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,  // debe existir
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
+    return res.status(405).json({ error: 'Método no permitido' });
   }
 
-  const { servicio } = req.body;
-
-  if (!servicio) {
-    return res.status(400).json({ error: 'Missing servicio in request body' });
+  const { nombre, servicio } = req.body as { nombre?: string; servicio?: string };
+  if (!nombre || !servicio) {
+    return res.status(400).json({ error: 'Faltan "nombre" o "servicio"' });
   }
 
   try {
-    const prompt = `Eres un especialista médico. Basado en el servicio "${servicio}", genera una recomendación clínica breve y específica para un informe médico.`;
-
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [
-        { role: 'system', content: 'Eres un profesional clínico redactando recomendaciones.' },
-        { role: 'user', content: prompt },
-      ],
-      temperature: 0.7,
-    });
-
-    const respuesta = completion.choices[0].message.content;
-    res.status(200).json({ recommendation: respuesta });
+    const recomendacion = await generateRecommendation(
+      { nombre, servicio, analisis_ia: null },
+      openai
+    );
+    return res.status(200).json({ recomendacion });
   } catch (error) {
-    console.error('Error generando recomendación:', error);
-    res.status(500).json({ error: 'Error generando recomendación IA' });
+    console.error('Error IA:', error);
+    return res.status(500).json({ error: 'Error interno al generar recomendación' });
   }
 }
