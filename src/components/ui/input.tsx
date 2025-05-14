@@ -1,9 +1,9 @@
-// src/components/ui/input.tsx
+// src/components/ui/Input.tsx
 import * as React from "react";
 
-// Esta interfaz puede extenderse más adelante si se necesitan props adicionales
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  className?: string;
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className = "", type = "text", ...props }, ref) => {

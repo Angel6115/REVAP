@@ -5,11 +5,11 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/Button";
 
-type DocumentoCompartido = {
+interface Documento {
   name: string;
   code: string;
   sharedWith: string;
-};
+}
 
 export default function VerificarExpediente() {
   const [email, setEmail] = useState("");
@@ -25,18 +25,11 @@ export default function VerificarExpediente() {
       return;
     }
 
-    const documents: DocumentoCompartido[] = JSON.parse(stored);
+    const documents: Documento[] = JSON.parse(stored);
 
-    interface Documento {
-      name: string;
-      code: string;
-      sharedWith: string;
-    }
-    
-    const match = (documents as Documento[]).find(
+    const match = documents.find(
       (doc) => doc.sharedWith === email && doc.code === code
     );
-    
 
     if (match) {
       setDocName(match.name);
@@ -49,7 +42,7 @@ export default function VerificarExpediente() {
   };
 
   const simulateShare = () => {
-    const existing: DocumentoCompartido[] = JSON.parse(localStorage.getItem("documents") || "[]");
+    const existing: Documento[] = JSON.parse(localStorage.getItem("documents") || "[]");
     existing.push({
       name: "Expediente Clínico - Juan Pérez",
       code: "794264",
