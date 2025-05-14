@@ -1,71 +1,47 @@
-// src/pages/register.tsx
+// apps/web/src/pages/register.tsx
+import React from 'react';
+import Image from 'next/image';
 
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/Button";
-import { Card, CardContent } from "@/components/ui/card";
-
-export default function Register() {
-  const router = useRouter();
-  const [role, setRole] = useState<string>("paciente");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleRegister = (e: React.FormEvent) => {
-    e.preventDefault();
-    localStorage.setItem("role", role);
-    router.push("/dashboard");
-  };
-
+export default function RegisterPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-      <Card className="w-full max-w-md">
-        <CardContent className="space-y-6">
-          <h1 className="text-2xl font-bold text-center">Registro en REVAP</h1>
+    <div className="flex h-screen">
+      {/* Lado izquierdo */}
+      <div className="w-1/2 bg-gradient-to-br from-[#04345C] to-[#117CA6] flex justify-center items-center">
+        <Image src="/REVAP.png" alt="Logo REVAP" width={300} height={100} />
+      </div>
 
-          <div className="flex justify-center gap-4">
-            <Button
-              variant={role === "paciente" ? "default" : "outline"}
-              onClick={() => setRole("paciente")}
-            >
-              Paciente
-            </Button>
-            <Button
-              variant={role === "medico" ? "default" : "outline"}
-              onClick={() => setRole("medico")}
-            >
-              Médico
-            </Button>
-            <Button
-              variant={role === "especialista" ? "default" : "outline"}
-              onClick={() => setRole("especialista")}
-            >
-              Especialista
-            </Button>
-          </div>
-
-          <form className="space-y-4" onSubmit={handleRegister}>
-            <Input
-              placeholder="Correo electrónico"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <Input
-              placeholder="Contraseña"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <Button className="w-full" type="submit">
-              Registrarse
-            </Button>
+      {/* Lado derecho con formulario */}
+      <div className="w-1/2 bg-white flex justify-center items-center">
+        <div className="bg-white shadow-xl p-10 rounded-lg w-96">
+          <h2 className="text-2xl font-bold text-center mb-6">Regístrate</h2>
+          <form>
+            <div className="flex gap-2">
+              <input type="text" placeholder="Nombre" className="input-style w-1/2" />
+              <input type="text" placeholder="Apellido" className="input-style w-1/2" />
+            </div>
+            <input type="email" placeholder="Correo" className="input-style" />
+            <input type="password" placeholder="Contraseña" className="input-style" />
+            <input type="password" placeholder="Confirma la contraseña" className="input-style" />
+            <div className="flex items-center my-3">
+              <input type="checkbox" id="remember" className="mr-2" />
+              <label htmlFor="remember" className="text-sm">Recordar</label>
+            </div>
+            <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded">
+              Registrar
+            </button>
           </form>
-        </CardContent>
-      </Card>
-    </main>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .input-style {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+        }
+      `}</style>
+    </div>
   );
 }
